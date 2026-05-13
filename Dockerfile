@@ -1,3 +1,6 @@
-FROM telegrammessenger/proxy
-ENV SECRET=dae26048f6a5259dc53e02de43e6933479612e7275
-EXPOSE 443
+FROM ghcr.io/xtls/xray-core:latest
+WORKDIR /app
+COPY config.json /app/config.json
+COPY start.sh /app/start.sh
+RUN chmod +x /app/start.sh
+CMD ["/app/start.sh"]
