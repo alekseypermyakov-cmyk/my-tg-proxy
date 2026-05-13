@@ -10,7 +10,5 @@ RUN apk add --no-cache curl unzip ca-certificates \
  && rm -f /tmp/xray.zip
 
 COPY config.json /app/config.json
-COPY start.sh /app/start.sh
-RUN chmod +x /app/start.sh
 
-CMD ["/app/start.sh"]
+CMD ["sh", "-c", "PORT=${PORT:-10000}; sed \"s/\\\"port\\\": 10000/\\\"port\\\": ${PORT}/\" /app/config.json > /app/config.runtime.json; exec /usr/local/bin/xray run -c /app/config.runtime.json"]
